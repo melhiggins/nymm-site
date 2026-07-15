@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Not Your Model Minority</title>
+<meta name="description" content="Games, tools, and objects for people with family lore and no interest in behaving.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+<!-- Social preview -->
+<meta property="og:title" content="Not Your Model Minority">
+<meta property="og:description" content="Games, tools, and objects for people with family lore and no interest in behaving.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://notyourmodelminority.com">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,900&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --paper: #F5ECD7;
+    --ink: #241B14;
+    --orange: #D6552E;
+    --mustard: #E8A93A;
+    --avocado: #5E6B34;
+    --turquoise: #2A9D96;
+    --chili: #B23A2A;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { height: 100%; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "DM Sans", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 32px 24px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* analog grain overlay */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0.05;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* giant background asterisk */
+  .backstar {
+    position: fixed;
+    right: -8vw;
+    bottom: -14vh;
+    font-family: "Fraunces", serif;
+    font-weight: 900;
+    font-size: 62vh;
+    line-height: 1;
+    color: var(--orange);
+    opacity: 0.12;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    width: 100%;
+    margin: auto;
+  }
+
+  .eyebrow {
+    font-family: "Space Mono", monospace;
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--avocado);
+    margin-bottom: 28px;
+  }
+  .eyebrow .star { color: var(--orange); }
+
+  h1 {
+    font-family: "Fraunces", serif;
+    font-weight: 900;
+    font-size: clamp(44px, 12vw, 92px);
+    line-height: 0.94;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  h1 .star {
+    color: var(--orange);
+    font-size: 0.55em;
+    vertical-align: super;
+    margin-left: 0.04em;
+  }
+
+  .tagline {
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    font-size: clamp(20px, 4.4vw, 28px);
+    line-height: 1.2;
+    margin-bottom: 14px;
+    max-width: 20ch;
+  }
+
+  .sub {
+    font-size: clamp(15px, 3.6vw, 18px);
+    line-height: 1.5;
+    max-width: 42ch;
+    margin-bottom: 40px;
+    color: var(--ink);
+  }
+
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 440px;
+  }
+
+  input[type="email"] {
+    flex: 1 1 220px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 16px;
+    padding: 15px 16px;
+    border: 2px solid var(--ink);
+    background: #FBF5E7;
+    color: var(--ink);
+    border-radius: 0;
+    outline: none;
+  }
+  input[type="email"]::placeholder { color: #8a7d6b; }
+  input[type="email"]:focus { border-color: var(--orange); }
+
+  button {
+    font-family: "DM Sans", sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 15px 22px;
+    border: 2px solid var(--ink);
+    background: var(--orange);
+    color: var(--paper);
+    cursor: pointer;
+    border-radius: 0;
+    transition: transform 0.05s ease, background 0.15s ease;
+  }
+  button:hover { background: var(--chili); }
+  button:active { transform: translateY(1px); }
+
+  .finewrap {
+    margin-top: 16px;
+    min-height: 22px;
+  }
+  .fineprint {
+    font-family: "Space Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--avocado);
+  }
+  .success {
+    font-family: "Space Mono", monospace;
+    font-size: 13px;
+    color: var(--turquoise);
+    display: none;
+  }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    font-family: "Space Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink);
+    opacity: 0.6;
+    padding-top: 40px;
+  }
+  footer .star { color: var(--orange); }
+
+  @media (max-width: 480px) {
+    body { padding: 24px 20px; }
+    form { flex-direction: column; }
+    button { width: 100%; }
+  }
+</style>
+</head>
+<body>
+  <div class="backstar" aria-hidden="true">*</div>
+
+  <div class="wrap">
+    <p class="eyebrow">Something is coming<span class="star">*</span></p>
+
+    <h1>Not Your Model Minority<span class="star">*</span></h1>
+
+    <p class="tagline">Not here to be inspirational on command.</p>
+
+    <p class="sub">Games, tools, and objects for people with family lore and no interest in behaving.</p>
+
+    <form id="signup">
+      <input type="email" id="email" name="email" placeholder="your email" required>
+      <button type="submit">Let me in</button>
+    </form>
+
+    <div class="finewrap">
+      <p class="fineprint" id="fineprint">We will not email you often. When we do, it will be good.</p>
+      <p class="success" id="success">You're in. Tell your cousin. Not your auntie.</p>
+    </div>
+  </div>
+
+  <footer>notyourmodelminority.com <span class="star">*</span> NYMM</footer>
+
+<script>
+  // Paste your Google Apps Script Web App URL between the quotes below.
+  var ENDPOINT = "https://script.google.com/macros/s/AKfycbzB3fBQuQmNgj5c-r3iortZoJJvx3DZ_ODZevGidUBnxiqdbKJzsyKtBHI8M6JIk28/exec";
+
+  var form = document.getElementById("signup");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var email = document.getElementById("email").value.trim();
+    if (!email) return;
+
+    if (ENDPOINT && ENDPOINT.indexOf("http") === 0) {
+      fetch(ENDPOINT, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ email: email })
+      }).catch(function () {});
+    }
+
+    document.getElementById("fineprint").style.display = "none";
+    document.getElementById("email").style.display = "none";
+    document.querySelector("#signup button").style.display = "none";
+    document.getElementById("success").style.display = "block";
+  });
+</script>
+</body>
+</html>
